@@ -164,7 +164,7 @@ static void execute(command_t command){
 static void spawn(command_t command, int background){
 // BEGIN
 if(!background)
-execute(command)
+execute(command);
 else{
 
 }
