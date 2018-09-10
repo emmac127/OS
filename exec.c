@@ -35,7 +35,7 @@ void interrupts_disable(){
  */
 void interrupts_enable(){
 // BEGIN
-	signal(SIGINT, SIGTERM);
+	signal(SIGINT, SIG_DFL);
 
 //	printf("ENABLE INTERRUPTS\n");	// replace this line
 // END
@@ -46,7 +46,10 @@ void interrupts_enable(){
  */
 void interrupts_catch(){
 // BEGIN
-	printf("CATCH INTERRUPTS\n");	// replace this line
+
+signal(sigint, sighandler)
+
+	//printf("CATCH INTERRUPTS\n");	// replace this line
 // END
 }
 
@@ -57,6 +60,8 @@ void interrupts_catch(){
  */
 static void redir_fd(int fd1, int fd2){
 // BEGIN
+
+
 	printf("REDIRECT %d TO %d\n", fd1, fd2);	// replace this line
 // END
 }
@@ -158,6 +163,12 @@ static void execute(command_t command){
  */
 static void spawn(command_t command, int background){
 // BEGIN
+if(!background)
+execute(command)
+else{
+
+}
+
 	printf("RUN %s\n", command->argv[0]);	// replace this line
 // END
 }
@@ -185,7 +196,16 @@ static void source(command_t command){
 	for (i = 1; command->argv[i] != 0; i++) {
 		char *file = command->argv[i];
 // BEGIN
-	printf("SOURCE FROM %s\n", file);	// replace this line
+	//now access file
+	int fd;
+	fd = open(file, O_RDONLY);
+	reader_t reader = reader_create(fd);
+	interpret(reader, 0);
+	reader_free(reader);
+
+	close(fd);
+
+	//printf("SOURCE FROM %s\n", file);	// replace this line
 // END
 	}
 }
