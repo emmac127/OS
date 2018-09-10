@@ -47,7 +47,7 @@ void interrupts_enable(){
 void interrupts_catch(){
 // BEGIN
 
-signal(sigint, sighandler)
+signal(SIGINT, sighandler);
 
 	//printf("CATCH INTERRUPTS\n");	// replace this line
 // END
