@@ -35,7 +35,9 @@ void interrupts_disable(){
  */
 void interrupts_enable(){
 // BEGIN
-	printf("ENABLE INTERRUPTS\n");	// replace this line
+	signal(SIGINT, SIGTERM);
+
+//	printf("ENABLE INTERRUPTS\n");	// replace this line
 // END
 }
 
