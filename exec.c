@@ -180,27 +180,23 @@ static void execute(command_t command){
  */
 static void spawn(command_t command, int background){
 // BEGIN
-	printf("is spawning");
 
-
-
-	if(!background){
-		printf("not background!");
-		interrupts_enable();
-		redir(command);
-
-	}
-	else{
-		interrupts_disable();
-		printf("is background!");
-	}
 
 	int child_id = fork();
 
 	if(child_id == 0){
 		printf("child child child!");
 		//this is the child running
+		if(!background){
+			printf("not background!");
+			interrupts_enable();
+			redir(command);
 
+		}
+		else{
+			interrupts_disable();
+			printf("is background!");
+		}
 		execute(command);
 	}
 	else{
