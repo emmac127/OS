@@ -55,6 +55,9 @@ char reader_next(reader_t reader){
 		reader -> index +=1;
 		if(c == EOF)
 			reader-> index= -1;
+			else{
+				printf("still working");
+			}
 		return c;
 	}
 
