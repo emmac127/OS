@@ -62,7 +62,7 @@ static void redir_fd(int fd1, int fd2){
 // BEGIN
 
 
-	int result = dup2(fd2, fd1);
+	int result = dup2(fd1, fd2);
 	if(result == -1)
 	_exit(1);
 
