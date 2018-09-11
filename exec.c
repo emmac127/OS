@@ -81,7 +81,7 @@ static void redir_file(char *name, int fd, int flags){
 // BEGIN
 	int file = open(name, flags);
 	if(file < 0)
-		_exit(1)
+		_exit(1);
 	else{
 		redir_fd(fd, file);
 		close(file);
