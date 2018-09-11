@@ -79,20 +79,11 @@ static void redir_fd(int fd1, int fd2){
  */
 static void redir_file(char *name, int fd, int flags){
 // BEGIN
-	int file = open(name, flags);
-	if(file < 0){
-		printf("file wouldn't open");
-		file = open(name, flags);
-		redir_fd(fd, file);
-		close(file);
-		//_exit(1);
-	}
-	else{
+	int file = open(name, flags, 0644);
+
 		redir_fd(fd, file);
 		close(file);
 
-	}
-	//printf("REDIRECT %d TO %s\n", fd, name);	// replace this line
 // END
 }
 
