@@ -68,6 +68,8 @@ static void redir_fd(int fd1, int fd2){
 	if(result == -1)
 	_exit(1);
 
+	fd1 = result;
+
 	//printf("REDIRECT %d TO %d\n", fd1, fd2);	// replace this line
 // END
 }
@@ -80,7 +82,6 @@ static void redir_fd(int fd1, int fd2){
 static void redir_file(char *name, int fd, int flags){
 // BEGIN
 	int file = open(name, flags, 0644);
-
 		redir_fd(fd, file);
 		close(file);
 
@@ -175,14 +176,12 @@ static void spawn(command_t command, int background){
 // BEGIN
 	//interrupts_catch();
 
-
-
 	int child_id = fork();
 
 	if(child_id == 0){
 		//printf("child child child!");
 		//this is the child running
-		redir(command);
+	//	redir(command);
 		if(!background){
 			//printf("not background!");
 		//	interrupts_catch();
