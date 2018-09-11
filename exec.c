@@ -195,7 +195,7 @@ static void spawn(command_t command, int background){
 		printf("child child child!");
 		//this is the child running
 
-		execute(command);
+		//execute(command);
 	}
 	else{
 
