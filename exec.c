@@ -177,18 +177,17 @@ static void spawn(command_t command, int background){
 	//interrupts_catch();
 
 	int child_id = fork();
+	redir(command);
 
 	if(child_id == 0){
 		//printf("child child child!");
 		//this is the child running
 	//	redir(command);
-		if(!background){
+		if(background){
 			//printf("not background!");
 		//	interrupts_catch();
 			//redir(command);
-		}
-		else{
-			//interrupts_disable();
+			interrupts_disable();
 		}
 
 		execute(command);
