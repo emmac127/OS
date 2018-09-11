@@ -44,7 +44,7 @@ char reader_next(reader_t reader){
 			return reader->arr[0];
 		else{
 			reader->index = -1;
-			reader_next(reader);
+			return reader_next(reader);
 		}
 
 	}
