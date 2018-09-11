@@ -34,12 +34,11 @@ char reader_next(reader_t reader){
 	//char c;
 	if(reader->index == -1){
 		char c;
-		n = read(reader->fd, &c, 1);
+		int n = read(reader->fd, &c, 1);
 		return n == 1 ? c : EOF;
 	}
-
-	if(reader->index == 512){
-		int n = read(reader->fd, &arr, 1);
+	else if(reader->index == 512){
+		int n = read(reader->fd, &(reader->arr), 1);
 		reader->index = 0;
 		if(n ==1)
 			return arr[0];
@@ -50,7 +49,7 @@ char reader_next(reader_t reader){
 
 	}
 	else{
-		char c = arr[index];
+		char c = reader->arr[reader->index];
 		reader -> index +=1;
 		return c;
 	}
