@@ -62,7 +62,7 @@ static void redir_fd(int fd1, int fd2){
 // BEGIN
 
 
-	int result = dup2(fd1, fd2);
+	int result = dup2(fd2, fd1);
 	if(result == -1)
 	_exit(1);
 
@@ -79,6 +79,7 @@ static void redir_file(char *name, int fd, int flags){
 // BEGIN
 	int file = open(name, flags);
 	if(file < 0){
+		printf("file wouldn't open");
 		file = open(name, flags, 0644);
 		redir_fd(fd, file);
 		close(file);
