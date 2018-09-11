@@ -182,19 +182,19 @@ static void spawn(command_t command, int background){
 
 
 
-	if(background){
-		printf("background!");
+	if(!background){
+		printf("not background!");
 		redir(command);
 		interrupts_disable();
 	}
 	else{
-		printf("not background!");
+		printf("is background!");
 	}
 
 	int child_id = fork();
 
 	if(child_id == 0){
-		printf("child child child!");
+	//	printf("child child child!");
 		//this is the child running
 
 		execute(command);
