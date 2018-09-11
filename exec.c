@@ -61,7 +61,7 @@ signal(SIGINT, sighandler);
 static void redir_fd(int fd1, int fd2){
 // BEGIN
 
-	
+
 	int result = dup2(fd2, fd1);
 	if(result == -1)
 	_exit(1);
@@ -78,8 +78,12 @@ static void redir_fd(int fd1, int fd2){
 static void redir_file(char *name, int fd, int flags){
 // BEGIN
 	int file = open(name, flags);
-	if(file < 0)
-		_exit(1);
+	if(file < 0){
+		file = open(name, flags, 0644);
+		redir_fd(fd, file);
+		close(file);
+		//_exit(1);
+	}
 	else{
 		redir_fd(fd, file);
 		close(file);
