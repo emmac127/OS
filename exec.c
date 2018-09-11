@@ -177,7 +177,10 @@ static void spawn(command_t command, int background){
 	//interrupts_catch();
 
 	int child_id = fork();
-	redir(command);
+	if(!background){
+		redir(command);
+	}
+
 
 	if(child_id == 0){
 		//printf("child child child!");
