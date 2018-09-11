@@ -46,8 +46,10 @@ char reader_next(reader_t reader){
 		int n = read(reader->fd, &(reader->arr), 512);
 
 		reader->index = 0;
-		if(n > 0)
+		if(n > 0){
+			printf("read some");
 			return reader->arr[0];
+		}
 		else{
 			reader->index = -1;
 			return reader_next(reader);
