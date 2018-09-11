@@ -179,15 +179,18 @@ static void execute(command_t command){
  */
 static void spawn(command_t command, int background){
 // BEGIN
+	printf("is spawning");
 
 
 
 	if(!background){
 		printf("not background!");
+		interrupts_enable();
 		redir(command);
-		interrupts_disable();
+
 	}
 	else{
+		interrupts_disable();
 		printf("is background!");
 	}
 
@@ -200,8 +203,6 @@ static void spawn(command_t command, int background){
 		//execute(command);
 	}
 	else{
-
-
 
 		if(!background){
 		//this is the parent running
