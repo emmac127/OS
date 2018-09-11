@@ -67,9 +67,6 @@ static void redir_fd(int fd1, int fd2){
 	int result = dup2(fd2, fd1);
 	if(result == -1)
 	_exit(1);
-	else{
-		fd1 = result;
-	}
 
 	//printf("REDIRECT %d TO %d\n", fd1, fd2);	// replace this line
 // END
@@ -85,7 +82,7 @@ static void redir_file(char *name, int fd, int flags){
 	int file = open(name, flags);
 	if(file < 0){
 		printf("file wouldn't open");
-		file = open(name, flags, 0644);
+		file = open(name, flags);
 		redir_fd(fd, file);
 		close(file);
 		//_exit(1);
@@ -185,7 +182,7 @@ static void execute(command_t command){
  */
 static void spawn(command_t command, int background){
 // BEGIN
-	interrupts_catch();
+	//interrupts_catch();
 
 
 
@@ -197,11 +194,11 @@ static void spawn(command_t command, int background){
 		redir(command);
 		if(!background){
 			//printf("not background!");
-			interrupts_catch();
+		//	interrupts_catch();
 			//redir(command);
 		}
 		else{
-			interrupts_disable();
+			//interrupts_disable();
 		}
 
 		execute(command);
@@ -215,7 +212,7 @@ static void spawn(command_t command, int background){
 		int stat;
 		while(tru){
 			int next_id = wait(&stat);
-			interrupts_catch();
+			//interrupts_catch();
 			if(next_id == child_id)
 				tru = 0;
 			else{
