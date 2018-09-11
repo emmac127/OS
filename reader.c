@@ -19,18 +19,42 @@
 
 struct reader {
 	int fd;
+	char arr[512];
+	int index;
 };
 
 reader_t reader_create(int fd){
 	reader_t reader = (reader_t) calloc(1, sizeof(*reader));
+	reader->index = 512;
 	reader->fd = fd;
 	return reader;
 }
 
 char reader_next(reader_t reader){
-	char c;
-	int n = read(reader->fd, &c, 1);
-	return n == 1 ? c : EOF;
+	//char c;
+	if(reader->index == -1){
+		char c;
+		n = read(reader->fd, &c, 1);
+		return n == 1 ? c : EOF;
+	}
+
+	if(reader->index == 512){
+		int n = read(reader->fd, &arr, 1);
+		reader->index = 0;
+		if(n ==1)
+			return arr[0];
+		else{
+			reader->index = -1;
+			reader_next(reader);
+		}
+
+	}
+	else{
+		char c = arr[index];
+		reader -> index +=1;
+		return c;
+	}
+
 }
 
 void reader_free(reader_t reader){
