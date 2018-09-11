@@ -2,3 +2,4 @@ echo this
 echo is
 echo a
 echo test
+cat hello
