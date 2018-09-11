@@ -61,7 +61,6 @@ signal(SIGINT, sighandler);
 static void redir_fd(int fd1, int fd2){
 // BEGIN
 
-
 	printf("REDIRECT %d TO %d\n", fd1, fd2);	// replace this line
 // END
 }
@@ -164,12 +163,38 @@ static void execute(command_t command){
 static void spawn(command_t command, int background){
 // BEGIN
 if(!background)
-execute(command);
+	redir(command)
+	execute(command);
 else{
+	int child_id = fork();
+	if(child_id == 0){
+		//this is the child running
+		interrupts_disable();
+		execute(command);
+	}
+	else{
+		//this is the parent running
+		int tru = 1;
+		while(tru){
+			int next_id = wait();
+			if(next_id == child_id)
+				tru = 0;
+			else{
+
+				if(WIFEXITED(next_id))
+				printf("process %d terminated with status %d\n",next_id, WEXITSTATUS(next_id));
+				else{
+					printf("process %d terminated with signal %d\n",next_id, WTERMSIG(stat));
+				}
+
+				}
+		}
+
+	}
 
 }
 
-	printf("RUN %s\n", command->argv[0]);	// replace this line
+	//printf("RUN %s\n", command->argv[0]);	// replace this line
 // END
 }
 
@@ -182,8 +207,14 @@ static void cd(command_t command){
 		return;
 	}
 	char *dir = command->argv[1];
+
+	if(dir== 0){
+		dir = getenv("$HOME");
+	}
+
+	chdir(dir);
 // BEGIN
-	printf("CHDIR TO %s\n", dir == 0 ? "<home>" : dir);	// replace this line
+	//printf("CHDIR TO %s\n", dir == 0 ? "<home>" : dir);	// replace this line
 // END
 }
 
