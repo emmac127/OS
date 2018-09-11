@@ -185,20 +185,9 @@ static void execute(command_t command){
  */
 static void spawn(command_t command, int background){
 // BEGIN
+	interrupts_catch();
 
 
-
-
-	if(!background){
-		//printf("not background!");
-		interrupts_catch();
-		//redir(command);
-
-	}
-	else{
-		interrupts_disable();
-	//	printf("is background!");
-	}
 
 	int child_id = fork();
 
@@ -213,10 +202,12 @@ static void spawn(command_t command, int background){
 
 		}
 		else{
-		//	interrupts_disable();
+			interrupts_disable();
 		//	printf("is background!");
 		}
+
 		execute(command);
+
 	}
 	else{
 
@@ -226,6 +217,7 @@ static void spawn(command_t command, int background){
 		int stat;
 		while(tru){
 			int next_id = wait(&stat);
+			interrupts_catch();
 			if(next_id == child_id)
 				tru = 0;
 			else{
@@ -244,7 +236,7 @@ static void spawn(command_t command, int background){
 
 
 		}
-		interrupts_catch();
+
 
 
 }
