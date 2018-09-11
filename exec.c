@@ -228,6 +228,7 @@ static void spawn(command_t command, int background){
 
 
 		}
+		interrupts_enable();
 
 
 }
