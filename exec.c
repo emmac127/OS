@@ -163,7 +163,7 @@ static void execute(command_t command){
 static void spawn(command_t command, int background){
 // BEGIN
 if(!background)
-	redir(command)
+	redir(command);
 	execute(command);
 else{
 	int child_id = fork();
@@ -175,15 +175,16 @@ else{
 	else{
 		//this is the parent running
 		int tru = 1;
+		int stat;
 		while(tru){
-			int next_id = wait();
+			int next_id = wait(&stat);
 			if(next_id == child_id)
 				tru = 0;
 			else{
 
-				if(WIFEXITED(next_id))
-				printf("process %d terminated with status %d\n",next_id, WEXITSTATUS(next_id));
-				else{
+				if(WIFEXITED(stat))
+				printf("process %d terminated with status %d\n",next_id, WEXITSTATUS(stat));
+				else if(WIFSIGNALED(stat)){
 					printf("process %d terminated with signal %d\n",next_id, WTERMSIG(stat));
 				}
 
