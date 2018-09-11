@@ -191,7 +191,7 @@ static void spawn(command_t command, int background){
 
 	if(!background){
 		//printf("not background!");
-		interrupts_enable();
+		interrupts_catch();
 		//redir(command);
 
 	}
@@ -244,7 +244,7 @@ static void spawn(command_t command, int background){
 
 
 		}
-		//interrupts_enable();
+		interrupts_catch();
 
 
 }
