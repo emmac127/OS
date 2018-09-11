@@ -162,18 +162,19 @@ static void execute(command_t command){
  */
 static void spawn(command_t command, int background){
 // BEGIN
-if(!background){
-	redir(command);
-	execute(command);
-}
-else{
+
 	int child_id = fork();
 	if(child_id == 0){
 		//this is the child running
+		if(!background)
+		redir(command);
+		else
 		interrupts_disable();
 		execute(command);
 	}
 	else{
+
+		if(!background){
 		//this is the parent running
 		int tru = 1;
 		int stat;
@@ -190,9 +191,14 @@ else{
 
 
 				}
+			}
+		}
+		else{
+			printf("process %d running in the background\n",child_id);
+
+
 		}
 
-	}
 
 }
 
