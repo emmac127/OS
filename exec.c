@@ -236,10 +236,10 @@ static void spawn(command_t command, int background){
 	//
 	//
 	// 	}
-
-
-
-}
+//
+// 
+//
+// }
 
 	//printf("RUN %s\n", command->argv[0]);	// replace this line
 // END
