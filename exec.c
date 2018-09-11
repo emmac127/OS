@@ -65,6 +65,9 @@ static void redir_fd(int fd1, int fd2){
 	int result = dup2(fd2, fd1);
 	if(result == -1)
 	_exit(1);
+	else{
+		fd1 = result;
+	}
 
 	//printf("REDIRECT %d TO %d\n", fd1, fd2);	// replace this line
 // END

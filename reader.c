@@ -47,7 +47,6 @@ char reader_next(reader_t reader){
 
 		reader->index = 1;
 		if(n > 0){
-//printf("read some");
 			return reader->arr[0];
 		}
 		else{
