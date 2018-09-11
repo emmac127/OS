@@ -32,34 +32,35 @@ reader_t reader_create(int fd){
 
 char reader_next(reader_t reader){
 
+	char c;
+	int n = read(reader->fd, &c, 1);
+	return n == 1 ? c : EOF;
+
 	//char c;
-	if(reader->index == -1){
-		char c;
-		int n = read(reader->fd, &c, 1);
-		printf(".%c.",c);
-		return n == 1 ? c : EOF;
-	}
-	else if(reader->index == 512){
-		int n = read(reader->fd, &(reader->arr), 512);
-			printf(".%d.",n);
-		reader->index = 0;
-		if(n ==1)
-			return reader->arr[0];
-		else{
-			reader->index = -1;
-			return reader_next(reader);
-		}
-	}
-	else{
-		char c = reader->arr[reader->index];
-		reader -> index +=1;
-		if(c == EOF)
-			reader-> index= -1;
-			else{
-				printf("still working");
-			}
-		return c;
-	}
+	// if(reader->index == -1){
+	// 	char c;
+	// 	int n = read(reader->fd, &c, 1);
+	// 	return n == 1 ? c : EOF;
+	// }
+	// else if(reader->index == 512){
+	// 	int n = read(reader->fd, &(reader->arr), 512);
+	//
+	// 	reader->index = 0;
+	// 	if(n ==1)
+	// 		return reader->arr[0];
+	// 	else{
+	// 		reader->index = -1;
+	// 		return reader_next(reader);
+	// 	}
+	// }
+	// else{
+	// 	char c = reader->arr[reader->index];
+	// 	reader -> index +=1;
+	// 	if(c == EOF)
+	// 		reader-> index= -1;
+	//
+	// 	return c;
+	// }
 
 }
 
