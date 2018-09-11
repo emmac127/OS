@@ -187,7 +187,7 @@ static void spawn(command_t command, int background){
 // BEGIN
 
 
-	int child_id = fork();
+
 
 	if(!background){
 		//printf("not background!");
@@ -199,6 +199,8 @@ static void spawn(command_t command, int background){
 		interrupts_disable();
 	//	printf("is background!");
 	}
+
+	int child_id = fork();
 
 	if(child_id == 0){
 		//printf("child child child!");
