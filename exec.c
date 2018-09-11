@@ -60,8 +60,15 @@ signal(SIGINT, sighandler);
  */
 static void redir_fd(int fd1, int fd2){
 // BEGIN
+	int arr[2];
+	arr[1] = fd1;
+	arr[0] = fd2;
 
-	printf("REDIRECT %d TO %d\n", fd1, fd2);	// replace this line
+	int result = pipe(arr);
+	if(result == -1)
+	_exit(1);
+
+	//printf("REDIRECT %d TO %d\n", fd1, fd2);	// replace this line
 // END
 }
 
@@ -72,7 +79,15 @@ static void redir_fd(int fd1, int fd2){
  */
 static void redir_file(char *name, int fd, int flags){
 // BEGIN
-	printf("REDIRECT %d TO %s\n", fd, name);	// replace this line
+	int file = open(name, flags);
+	if(file < 0)
+		_exit(1)
+	else{
+		redir_fd(fd, file);
+		close(file);
+
+	}
+	//printf("REDIRECT %d TO %s\n", fd, name);	// replace this line
 // END
 }
 
