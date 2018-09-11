@@ -40,6 +40,7 @@ char reader_next(reader_t reader){
 	}
 	else if(reader->index == 512){
 		int n = read(reader->fd, &(reader->arr), 1);
+		printf(".%d.",n);
 		reader->index = 0;
 		if(n ==1)
 			return reader->arr[0];
