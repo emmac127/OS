@@ -41,7 +41,7 @@ char reader_next(reader_t reader){
 		int n = read(reader->fd, &(reader->arr), 1);
 		reader->index = 0;
 		if(n ==1)
-			return arr[0];
+			return reader->arr[0];
 		else{
 			reader->index = -1;
 			reader_next(reader);
