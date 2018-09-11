@@ -31,7 +31,7 @@ reader_t reader_create(int fd){
 }
 
 char reader_next(reader_t reader){
-	printf(".%d.",reader->index);
+
 	//char c;
 	if(reader->index == -1){
 		char c;
@@ -40,8 +40,8 @@ char reader_next(reader_t reader){
 		return n == 1 ? c : EOF;
 	}
 	else if(reader->index == 512){
-		int n = read(reader->fd, &(reader->arr), 1);
-
+		int n = read(reader->fd, &(reader->arr), 512);
+			printf(".%d.",n);
 		reader->index = 0;
 		if(n ==1)
 			return reader->arr[0];
