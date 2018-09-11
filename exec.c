@@ -184,10 +184,11 @@ static void spawn(command_t command, int background){
 	if(child_id == 0){
 		//this is the child running
 		if(background){
+			printf("stop executing in background :(");
 			redir(command);
 			interrupts_disable();
 		}
-		execute(command);
+		//execute(command);
 	}
 	else{
 
