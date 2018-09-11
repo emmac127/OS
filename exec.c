@@ -185,57 +185,57 @@ static void execute(command_t command){
  */
 static void spawn(command_t command, int background){
 // BEGIN
-	interrupts_catch();
-
-
-
-	int child_id = fork();
-
-	if(child_id == 0){
-		//printf("child child child!");
-		//this is the child running
-		redir(command);
-		if(!background){
-			//printf("not background!");
-			//interrupts_enable();
-			//redir(command);
-
-		}
-		else{
-			interrupts_disable();
-		//	printf("is background!");
-		}
-
-		execute(command);
-
-	}
-	else{
-
-		if(!background){
-		//this is the parent running
-		int tru = 1;
-		int stat;
-		while(tru){
-			int next_id = wait(&stat);
-			interrupts_catch();
-			if(next_id == child_id)
-				tru = 0;
-			else{
-
-				if(WIFEXITED(stat))
-				printf("process %d terminated with status %d\n",next_id, WEXITSTATUS(stat));
-				else if(WIFSIGNALED(stat))
-					printf("process %d terminated with signal %d\n",next_id, WTERMSIG(stat));
-
-
-				}
-			}
-		}
-		else{
-			printf("process %d running in the background\n",child_id);
-
-
-		}
+	// interrupts_catch();
+	//
+	//
+	//
+	// int child_id = fork();
+	//
+	// if(child_id == 0){
+	// 	//printf("child child child!");
+	// 	//this is the child running
+	// 	redir(command);
+	// 	if(!background){
+	// 		//printf("not background!");
+	// 		//interrupts_enable();
+	// 		//redir(command);
+	//
+	// 	}
+	// 	else{
+	// 		interrupts_disable();
+	// 	//	printf("is background!");
+	// 	}
+	//
+	// 	execute(command);
+	//
+	// }
+	// else{
+	//
+	// 	if(!background){
+	// 	//this is the parent running
+	// 	int tru = 1;
+	// 	int stat;
+	// 	while(tru){
+	// 		int next_id = wait(&stat);
+	// 		interrupts_catch();
+	// 		if(next_id == child_id)
+	// 			tru = 0;
+	// 		else{
+	//
+	// 			if(WIFEXITED(stat))
+	// 			printf("process %d terminated with status %d\n",next_id, WEXITSTATUS(stat));
+	// 			else if(WIFSIGNALED(stat))
+	// 				printf("process %d terminated with signal %d\n",next_id, WTERMSIG(stat));
+	//
+	//
+	// 			}
+	// 		}
+	// 	}
+	// 	else{
+	// 		printf("process %d running in the background\n",child_id);
+	//
+	//
+	// 	}
 
 
 
