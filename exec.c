@@ -27,6 +27,7 @@ void interrupts_disable(){
 	/* This code is already finished.  It's an example of what you need
 	 * to do with the other BEGIN/END sections in this file.
 	 */
+	 printf("disable inter");
 	signal(SIGINT, SIG_IGN);
 // END
 }
@@ -35,6 +36,7 @@ void interrupts_disable(){
  */
 void interrupts_enable(){
 // BEGIN
+printf("enable inter");
 	signal(SIGINT, SIG_DFL);
 
 //	printf("ENABLE INTERRUPTS\n");	// replace this line
