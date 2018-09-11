@@ -60,11 +60,9 @@ signal(SIGINT, sighandler);
  */
 static void redir_fd(int fd1, int fd2){
 // BEGIN
-	int arr[2];
-	arr[1] = fd1;
-	arr[0] = fd2;
 
-	int result = pipe(arr);
+	
+	int result = dup2(fd2, fd1);
 	if(result == -1)
 	_exit(1);
 
