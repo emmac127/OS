@@ -180,7 +180,7 @@ static void execute(command_t command){
 static void spawn(command_t command, int background){
 // BEGIN
 
-	int child_id = fork();
+
 
 	if(!background){
 		printf("background!");
@@ -190,6 +190,8 @@ static void spawn(command_t command, int background){
 	else{
 		printf("not background!");
 	}
+
+	int child_id = fork();
 
 	if(child_id == 0){
 		printf("child child child!");
