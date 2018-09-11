@@ -194,10 +194,10 @@ static void spawn(command_t command, int background){
 	int child_id = fork();
 
 	if(child_id == 0){
-	//	printf("child child child!");
+		printf("child child child!");
 		//this is the child running
 
-		execute(command);
+		//execute(command);
 	}
 	else{
 
